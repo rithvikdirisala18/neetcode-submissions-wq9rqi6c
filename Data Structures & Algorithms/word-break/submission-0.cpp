@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n = s.size();
+        vector<bool> dp(n+1, false);
+        dp[n] = true;
+        for(int i = n-1; i>=0; i--){
+            for(const string& w: wordDict){
+                int len = w.size();
+                if(i+len>n){
+                    continue;
+                }
+                string sub = s.substr(i, len);
+                if(sub==w && dp[i+len]){
+                    dp[i] = true;
+                }
+            }
+        }
+        return dp[0];
+    }
+};
